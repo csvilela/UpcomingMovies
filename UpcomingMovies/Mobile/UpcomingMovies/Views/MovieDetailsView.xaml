@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UpcomingMovies.Views.MovieDetailsView"
+             xmlns:utility="clr-namespace:UpcomingMovies.Utility; assembly=UpcomingMovies"
+             utility:ViewModelLocator.AutoWireViewModel="True"
+              Title="{Binding Title}">
+
+    <AbsoluteLayout VerticalOptions="Fill">
+        <ScrollView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <StackLayout Margin="3">
+                <Image Aspect="AspectFill" HeightRequest="100" Source="{Binding Movie.BackdropPath}" />
+                <Label Font="Bold,30" Text="{Binding Movie.Title}"/>
+                <Label Font="Italic" Text="{Binding Movie.ReleaseDate, StringFormat='\{0:MMMM d, yyyy}'}"/>
+                <Label Text="{Binding Movie.Overview}"/>
+                <Label Text="{Binding Path=Movie.Genres, Converter={StaticResource ListToStringConverter}}" TextColor="BlueViolet"/>
+            </StackLayout>
+        </ScrollView>
+        
+        
+        <!--TODO: Change the loading overlay to be unique across all pages to avoid repeated code-->
+        <BoxView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"
+            BackgroundColor="White"
+            InputTransparent="false"
+            IsVisible="{Binding IsBusy}" />
+        <ActivityIndicator IsRunning="{Binding IsBusy}" AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds=".5,.5,-1,-1" />
+    </AbsoluteLayout>
+</ContentPage>
